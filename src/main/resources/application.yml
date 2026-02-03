@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ai-code-helper
+  profiles:
+    active: local
+
+# 可以在这里设置一些通用配置
+langchain4j:
+  community:
+    dashscope:
+      chat-model:
+        model-name: qwen-max
+        api-key: <You API Key here>
+
+logging:
+  level:
+    com.aicodehelper: DEBUG  # 设置你的包的日志级别为DEBUG
+    dev.langchain4j: INFO   # LangChain4j相关日志
+    root: INFO              # 根日志级别
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
