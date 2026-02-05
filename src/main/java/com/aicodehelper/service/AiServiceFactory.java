@@ -4,6 +4,7 @@ import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.listener.ChatModelListener;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import jakarta.annotation.Resource;
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 public class AiServiceFactory {
 
     @Resource
-    ChatModel qwenChatModel;
+    ChatModel myQwenChatModel;
 
     @Resource
     ContentRetriever contentRetriever;
@@ -43,7 +44,7 @@ public class AiServiceFactory {
         // 一种是使用构造者模式创建
         return AiServices
                 .builder(AiCodeHelperService.class)
-                .chatModel(qwenChatModel)
+                .chatModel(myQwenChatModel)
                 // 设置会话记忆
                 .chatMemory(chatMemory)
                 .contentRetriever(contentRetriever)
@@ -55,7 +56,7 @@ public class AiServiceFactory {
     public AiCodeHelperService aiCodeHelperServiceWithMerryId() {
         return AiServices
                 .builder(AiCodeHelperService.class)
-                .chatModel(qwenChatModel)
+                .chatModel(myQwenChatModel)
                 // 设置会话记忆
                 .chatMemoryProvider(merryId -> MessageWindowChatMemory.withMaxMessages(10))
                 .build();

@@ -3,13 +3,15 @@ package com.aicodehelper.service;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.spring.AiService;
 
+import static dev.langchain4j.service.spring.AiServiceWiringMode.EXPLICIT;
+
 /**
  * AI编程助手 配置、提供AI对话服务 对比AiCodeHelperService，AiServiceFactory更简洁，更快速；不建议使用该方式，不易做配置，太死板不灵活
  *
  * @author tanghua
  * @date: 2026/02/03/ 21:38
  */
-@AiService
+@AiService(wiringMode = EXPLICIT, chatModel = "qwenChatModel")
 public interface AiCodeHelperServiceWithL4jStater {
 
     /**
