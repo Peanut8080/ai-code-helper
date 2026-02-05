@@ -3,6 +3,7 @@ package com.aicodehelper.service;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,9 @@ public class AiServiceFactory {
 
     @Resource
     ChatModel qwenChatModel;
+
+    @Resource
+    ContentRetriever contentRetriever;
 
     /**
      * 这里底层通过反射+动态代理的方式 创建一个AIService，带有对应的系统预设提示词
@@ -38,6 +42,7 @@ public class AiServiceFactory {
                 .chatModel(qwenChatModel)
                 // 设置会话记忆
                 .chatMemory(chatMemory)
+                .contentRetriever(contentRetriever)
                 .build();
     }
 

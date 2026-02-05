@@ -12,6 +12,10 @@ langchain4j:
         model-name: qwen-max
         api-key: <You API Key here>
 
+      embedding-model:
+        model-name: text-embedding-v4
+        api-key: <You API Key here>
+
 logging:
   level:
     com.aicodehelper: DEBUG  # 设置你的包的日志级别为DEBUG

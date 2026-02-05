@@ -1,6 +1,7 @@
 package com.aicodehelper.service;
 
 import dev.langchain4j.service.MemoryId;
+import dev.langchain4j.service.Result;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 
@@ -31,4 +32,8 @@ public interface AiCodeHelperService {
      */
     @SystemMessage(fromResource = "system-prompt.txt")
     String chatWithMemoryId(@MemoryId String memoryId, @UserMessage String message);
+
+    // 返回封装后的结果 包含引用RAG片段
+    @SystemMessage(fromResource = "system-prompt.txt")
+    Result<String> charWithResult(String message);
 }
