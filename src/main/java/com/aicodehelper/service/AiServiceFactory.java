@@ -1,5 +1,6 @@
 package com.aicodehelper.service;
 
+import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -24,6 +25,9 @@ public class AiServiceFactory {
     @Resource
     ContentRetriever contentRetriever;
 
+    @Resource
+    McpToolProvider mcpToolProvider;
+
     /**
      * 这里底层通过反射+动态代理的方式 创建一个AIService，带有对应的系统预设提示词
      *
@@ -43,6 +47,7 @@ public class AiServiceFactory {
                 // 设置会话记忆
                 .chatMemory(chatMemory)
                 .contentRetriever(contentRetriever)
+                .toolProvider(mcpToolProvider)
                 .build();
     }
 

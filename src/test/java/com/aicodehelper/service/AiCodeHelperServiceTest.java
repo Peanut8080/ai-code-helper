@@ -45,4 +45,10 @@ class AiCodeHelperServiceTest {
         chat = aiCodeHelperService.chat("我是谁？");
         log.info("AI:{}", chat);
     }
+
+    @Test
+    void chatWithMcp() {
+        String chat = aiCodeHelperService.chat("什么是程序员鱼皮");
+        log.info("AI:{}", chat);
+    }
 }

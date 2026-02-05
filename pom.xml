@@ -61,6 +61,12 @@
             <artifactId>langchain4j-spring-boot-starter</artifactId>
             <version>1.10.0-beta18</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/dev.langchain4j/langchain4j-mcp -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-mcp</artifactId>
+            <version>1.11.0-beta19</version>
+        </dependency>
     </dependencies>
 
     <build>
