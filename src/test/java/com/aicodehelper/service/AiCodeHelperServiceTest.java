@@ -1,10 +1,12 @@
 package com.aicodehelper.service;
 
+import dev.langchain4j.http.client.sse.ServerSentEvent;
 import dev.langchain4j.service.Result;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import reactor.core.publisher.Flux;
 
 /**
  *
@@ -16,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class AiCodeHelperServiceTest {
 
-    @Resource(name = "aiCodeHelperService")
+    @Resource(name = "aiCodeHelperServiceWithStreaming")
     private AiCodeHelperService aiCodeHelperService;
 
     @Test
@@ -32,10 +34,9 @@ class AiCodeHelperServiceTest {
     }
 
     @Test
-    void charWithResult() {
-        Result<String> result = aiCodeHelperService.charWithResult("什么是 Vibe Coding，有哪些推荐资源？");
+    void chatWithResult() {
+        Result<String> result = aiCodeHelperService.chatWithResult("什么是 Vibe Coding，有哪些推荐资源？");
         log.info("AI:{}", result.content());
-        log.info("AI:{}", result.sources());
     }
 
     @Test
@@ -50,5 +51,12 @@ class AiCodeHelperServiceTest {
     void chatWithMcp() {
         String chat = aiCodeHelperService.chat("什么是程序员鱼皮");
         log.info("AI:{}", chat);
+    }
+
+    @Test
+    void chatWithStreaming() {
+        Flux<String> result = aiCodeHelperService.chatWithStreaming("001", "你好，我是一个java后端开发程序员");
+        Flux<ServerSentEvent> data = result.map(chunk -> new ServerSentEvent("data", chunk));
+        log.info("AI:{}", data);
     }
 }

@@ -4,9 +4,11 @@ import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.Result;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
+import reactor.core.publisher.Flux;
 
 /**
  * AI编程助手 配置、提供AI对话服务
+ * 与AiServiceFactory结合使用
  *
  * @author tanghua
  * @date: 2026/02/03/ 21:19
@@ -35,5 +37,15 @@ public interface AiCodeHelperService {
 
     // 返回封装后的结果 包含引用RAG片段
     @SystemMessage(fromResource = "system-prompt.txt")
-    Result<String> charWithResult(String message);
+    Result<String> chatWithResult(String message);
+
+    /**
+     * 流式输出
+     *
+     * @param memoryId 会话Id
+     * @param message  用户信息
+     * @return AI 返回结果
+     */
+    @SystemMessage(fromResource = "system-prompt.txt")
+    Flux<String> chatWithStreaming(@MemoryId String memoryId, @UserMessage String message);
 }
