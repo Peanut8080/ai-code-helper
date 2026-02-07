@@ -22,9 +22,17 @@ public class AiController {
     private AiCodeHelperService aiCodeHelperService;
 
 
-    @PostMapping(value = "/chat", consumes = "application/json", produces = "application/json")
-    public Flux<ServerSentEvent> chat(@RequestBody ChatRequest chatRequest) {
-        return aiCodeHelperService.chatWithStreaming(chatRequest.getMemoryId(), chatRequest.getMessage())
+//    @PostMapping(value = "/chat", consumes = "application/json", produces = "application/json")
+//    public Flux<ServerSentEvent> chat(@RequestBody ChatRequest chatRequest) {
+//        return aiCodeHelperService.chatWithStreaming(chatRequest.getMemoryId(), chatRequest.getMessage())
+//                .map(chunk -> ServerSentEvent.<String>builder()
+//                        .data(chunk)
+//                        .build());
+//    }
+
+    @GetMapping("/chat")
+    public Flux<ServerSentEvent<String>> chat(String memoryId, String message) {
+        return aiCodeHelperService.chatWithStreaming(memoryId, message)
                 .map(chunk -> ServerSentEvent.<String>builder()
                         .data(chunk)
                         .build());
